@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_22_202240) do
+ActiveRecord::Schema.define(version: 2020_02_22_203100) do
+
+  create_table "questions", force: :cascade do |t|
+    t.string "contents"
+    t.integer "quiz_id", null: false
+    t.integer "question_type"
+    t.boolean "required"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["quiz_id"], name: "index_questions_on_quiz_id"
+  end
 
   create_table "quizzes", force: :cascade do |t|
-    t.integer "creator_id", null: false
+    t.integer "creator_id"
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -31,5 +41,5 @@ ActiveRecord::Schema.define(version: 2020_02_22_202240) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "quizzes", "creators"
+  add_foreign_key "questions", "quizzes"
 end

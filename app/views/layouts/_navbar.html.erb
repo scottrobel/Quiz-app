@@ -1,0 +1,7 @@
+<ul>
+  <% if user_signed_in? %>
+    <%= render 'layouts/logged_in_nav' %>
+  <% else %>
+    <%= render 'layouts/logged_out_nav' %>
+  <% end %>
+</ul>

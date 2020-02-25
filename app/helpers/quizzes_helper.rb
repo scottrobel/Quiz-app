@@ -1,6 +1,13 @@
 module QuizzesHelper
   private
 
+  def require_own_quiz
+    unless current_user.quizzes.find_by(id: params[:id])
+      flash[:alert] = "That Quiz is not Yours"
+      redirect_to root_path
+    end
+  end
+
   def require_admin
     unless current_user &. admin_user?
       flash[:alert] = "Only Admins Can See That Page!"

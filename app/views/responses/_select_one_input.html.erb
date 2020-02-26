@@ -1,0 +1,1 @@
+<%= question_helper.collection_radio_buttons :answers, question.choices.pluck(:id, :contents).to_h, :first, :last,{}, name: "response[questions][#{question.id}][answers][answer_ids][]" %>

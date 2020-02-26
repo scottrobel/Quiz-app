@@ -14,4 +14,11 @@ module QuizzesHelper
       redirect_to root_path
     end
   end
+
+  def require_quiz_exists
+    unless Quiz.find_by(id: params[:quiz_id])
+      flash[:alert] = "That quiz does not exist"
+      redirect_to root_path
+    end
+  end
 end

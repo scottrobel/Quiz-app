@@ -1,0 +1,3 @@
+<%= question_helper.fields_for question.answers.build do |answer_helper| %>
+   <%= answer_helper.text_area :contents, name: "response[questions][#{question.id}][answers][contents]" %>
+<% end %>

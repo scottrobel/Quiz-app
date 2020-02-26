@@ -1,13 +1,11 @@
 class QuizzesController < ApplicationController
   include QuizzesHelper
+  before_action :authenticate_user!
   before_action :require_admin
   before_action :require_own_quiz, only: [:edit, :update]
   def new
     @question_type_input = Question.question_types.map{|label, index|[label.split("_").join(" "), label]};
     @quiz = Quiz.new
-    0.times do
-      @quiz.questions.build.choices.build
-    end
   end
 
   def index
@@ -25,7 +23,7 @@ class QuizzesController < ApplicationController
     elsif params[:commit] == "Create Quiz"
       if @quiz.save
         flash[:notice] = "Quiz Created"
-        redirect_to root_path
+        redirect_to quizzes_path
       else
         flash.now[:alert] = @quiz.errors.full_messages.first
       end
@@ -40,19 +38,20 @@ class QuizzesController < ApplicationController
     @quiz = Quiz.find_by(id: params[:id])
   end
 
-  def update
+  def update 
     @quiz = Quiz.find_by(id: params[:id])
-    unless @quiz.update(quiz_update_params)
-      flash[:alert] = @quiz.errors.full_messages
-    end
-    if params[:commit] == "Add Question"
-      @quiz.questions.build
-    elsif params[:commit].match?(/Add Option to question \d+/)
-      question_number = params[:commit].match(/Add Option to question (\d+)/)[1].to_i - 1
-      @quiz.questions[question_number].choices.build
-    elsif params[:commit] == "Update Quiz"
-      flash[:notice] = "Quiz Updated"
-      redirect_to root_path
+    if !@quiz.update(quiz_update_params)
+      flash[:alert] = @quiz.errors.full_messages.first
+    else
+      if params[:commit] == "Add Question"
+        @quiz.questions.build
+      elsif params[:commit].match?(/Add Option to question \d+/)
+        question_number = params[:commit].match(/Add Option to question (\d+)/)[1].to_i - 1
+        @quiz.questions[question_number].choices.build
+      elsif params[:commit] == "Update Quiz"
+        flash[:notice] = "Quiz Updated"
+        redirect_to root_path
+      end
     end
     respond_to do |format|
       format.html{ render :edit }

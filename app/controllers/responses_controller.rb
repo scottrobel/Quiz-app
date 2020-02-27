@@ -21,9 +21,9 @@ class ResponsesController < ApplicationController
   end
 
   def show
-    response = Response.find_by(id: params[:id])
-    @user = response.user
-    @question_answer_pairs = response.answers.group_by do |answer|
+    @response = Response.find_by(id: params[:id])
+    @user = @response.user
+    @question_answer_pairs = @response.answers.group_by do |answer|
                                answer.answers_of.first
                              end
   end

@@ -1,3 +1,4 @@
+<%= link_to "<< Other Responses", quiz_responses_path(@response.quiz.id) %>
 <div><%# link_to "#{@user.email}", user_path(@user.id)%></div>
 <% @question_answer_pairs.each do |question, answer_array| %>
   <h4><%= question.question_type.split('_').join(' ') %></h4>

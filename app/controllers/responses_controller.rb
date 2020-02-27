@@ -2,7 +2,7 @@ class ResponsesController < ApplicationController
   include QuizzesHelper
   before_action :require_quiz_exists, only: [:new, :create]
   before_action :authenticate_user!
-  before_action :require_admin, only: [:show]
+  before_action :require_admin, only: [:show, :index]
   before_action :require_has_not_taken_quiz, only: [:new, :create]
   def new
     quiz = Quiz.find_by(id: params[:quiz_id])
@@ -12,12 +12,24 @@ class ResponsesController < ApplicationController
 
   def create
     response = build_response
-    if save_question_answers && response.save
+    if response.save && save_question_answers
       flash[:notice] = "Response Recorded!"
       redirect_to root_path
     else
       render :new
     end
+  end
+
+  def show
+    response = Response.find_by(id: params[:id])
+    @user = response.user
+    @question_answer_pairs = response.answers.group_by do |answer|
+                               answer.answers_of.first
+                             end
+  end
+
+  def index
+    @quiz = Quiz.find_by(id: params[:quiz_id])
   end
 
   private

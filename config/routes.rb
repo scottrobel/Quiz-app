@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :quizzes, only: [:new, :create, :edit, :update, :index]
   resources :quizzes do
-    resources :responses, only: [:new]
+    resources :responses, only: [:new, :index]
   end
   resources :responses, only: [:create, :show]
   root to: 'pages#home'

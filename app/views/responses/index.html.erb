@@ -1,0 +1,6 @@
+<h3> <%= @quiz.title %> Responses </h3>
+<ul>
+  <% @quiz.responses.each do |response| %>
+    <li><%= link_to "#{response.user.email}", response_path(response.id)%></li>
+  <% end %>
+</ul>

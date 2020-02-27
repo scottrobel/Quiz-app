@@ -16,9 +16,21 @@ module QuizzesHelper
   end
 
   def require_quiz_exists
-    unless Quiz.find_by(id: params[:quiz_id])
+    unless Quiz.find_by(id: params[:quiz_id] || response_params[:quiz_id])
       flash[:alert] = "That quiz does not exist"
       redirect_to root_path
     end
+  end
+
+  def require_has_not_taken_quiz
+    if Response.find_by(user_id: current_user.id,
+      quiz_id: params[:quiz_id] || response_params[:quiz_id])
+      flash[:alert] = "You already took that quiz"
+      redirect_to root_path
+    end
+  end
+
+  def response_params
+    params.require(:response).permit(:quiz_id, questions: [answers: [:contents, answer_ids: []]])
   end
 end

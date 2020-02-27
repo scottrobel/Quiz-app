@@ -1,9 +1,9 @@
 class ResponsesController < ApplicationController
   include QuizzesHelper
-  before_action :require_quiz_exists, only: [:new]
+  before_action :require_quiz_exists, only: [:new, :create]
   before_action :authenticate_user!
   before_action :require_admin, only: [:show]
-  before_action :require_has_not_taken_quiz, only: [:new]
+  before_action :require_has_not_taken_quiz, only: [:new, :create]
   def new
     quiz = Quiz.find_by(id: params[:quiz_id])
     @response = Response.new
@@ -65,10 +65,6 @@ class ResponsesController < ApplicationController
 
   def save_question_answers
     @pending_question_answers.each(&:save)
-  end
-
-  def response_params
-    params.require(:response).permit(:quiz_id, questions: [answers: [:contents, answer_ids: []]])
   end
 
   # rails inserts a hidden blank field

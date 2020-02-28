@@ -10,4 +10,5 @@ class Question < ApplicationRecord
   has_many :responses, through: :quiz
   accepts_nested_attributes_for :choices, allow_destroy: true
   accepts_nested_attributes_for :answers
+  validates :contents, presence: true
 end

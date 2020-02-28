@@ -1,6 +1,10 @@
 <h2>Take a Quiz</h2>
-<ul>
-<% @quizzes.each do |quiz| %>
-  <li><%= link_to quiz.title, new_quiz_response_path(quiz) %></li>
+<% if @quizzes.any? %>
+  <ul>
+  <% @quizzes.each do |quiz| %>
+    <li><%= link_to quiz.title, new_quiz_response_path(quiz) %></li>
+  <% end %>
+  </ul>
+<% else %>
+  <div>There are no more quizzes available!</div>
 <% end %>
-</ul>

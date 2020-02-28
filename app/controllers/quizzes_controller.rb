@@ -6,7 +6,7 @@ class QuizzesController < ApplicationController
   before_action :require_admin, except: [:index]
   before_action :require_own_quiz, only: %i[edit update]
   def new
-    @question_type_input = Question.question_types.map { |label, _index| [label.split('_').join(' '), label] }
+    @question_type_input = [["open ended", "open_ended"], ["select one", "select_one"], ["multiple choice", "multiple_choice"]]
     @quiz = Quiz.new
   end
 

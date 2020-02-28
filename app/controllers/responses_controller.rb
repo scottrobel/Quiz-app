@@ -14,8 +14,8 @@ class ResponsesController < ApplicationController
   end
 
   def create
-    response = build_response
-    if response.save && save_question_answers
+    @response = build_response
+    if @response.save && save_question_answers
       flash[:notice] = 'Response Recorded!'
       redirect_to root_path
     else

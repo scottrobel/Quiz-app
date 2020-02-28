@@ -1,3 +1,4 @@
+<%= render 'responses/response_errors' %>
 <%= form_for @response do |f| %>
   <div><%= @response.quiz.title %></div>
   <%= f.hidden_field :quiz_id %>

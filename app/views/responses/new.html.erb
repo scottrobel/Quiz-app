@@ -4,7 +4,7 @@
   <% @response.quiz.questions.each do |question| %>
     <%= f.fields_for question, index: question.id do |question_helper| %>
       <%= question_helper.label question.contents %>
-      <%= render 'responses/question_input', question: question, question_helper: question_helper %>
+      <%= render "responses/#{question.question_type}_input", question: question, question_helper: question_helper %>
     <% end %>
   <% end %>
   <%= f.submit %>

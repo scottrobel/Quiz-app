@@ -1,7 +1,5 @@
 <div class="top-message">Email: <%= @user.email %></div>
-<h3>Quiz Responses:</h3>
-<ul>
-  <% @user.responses.each do |response| %>
-    <li><%= link_to "#{response.quiz.title}", response_path(response.id)%></li>
-  <% end %>
-</ul>
+<h3 class="top-message">Quiz Responses:</h3>
+<% @user.responses.each do |response| %>
+  <div class="top-message"><%= link_to "#{response.quiz.title}", response_path(response.id)%></div>
+<% end %>

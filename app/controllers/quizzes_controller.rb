@@ -1,7 +1,7 @@
 class QuizzesController < ApplicationController
   include QuizzesHelper
   before_action :authenticate_user!
-  before_action :require_admin
+  before_action :require_admin, except: [:index]
   before_action :require_own_quiz, only: [:edit, :update]
   def new
     @question_type_input = Question.question_types.map{|label, index|[label.split("_").join(" "), label]};
@@ -12,8 +12,12 @@ class QuizzesController < ApplicationController
     @quiz = Quiz.find_by(id: params[:id])
   end
 
-  def index
+  def users_quizzes
     @quizzes = current_user.quizzes   
+  end
+
+  def index
+    @quizzes = Quiz.all - current_user.taken_quizzes
   end
 
   def create

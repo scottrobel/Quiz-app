@@ -9,6 +9,7 @@ module QuizzesHelper
   end
 
   def require_admin
+    debugger
     unless current_user &. admin_user?
       flash[:alert] = "Only Admins Can See That Page!"
       redirect_to root_path

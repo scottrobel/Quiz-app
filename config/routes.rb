@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
-  resources :quizzes, only: [:new, :create, :edit, :update, :index, :show]
+  get '/users_quizzes', to: 'quizzes#users_quizzes'
+  resources :quizzes, only: [:new, :create, :edit, :update, :show, :index]
   resources :quizzes do
     resources :responses, only: [:new, :index]
   end

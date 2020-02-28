@@ -7,17 +7,17 @@
         <%= f.fields_for :questions do |question_helper|%>
             <%= question_helper.label "Question #{question_helper.index + 1}" %>
             <%= question_helper.select :question_type, [["open ended", "open_ended"], ["select one", "select_one"], ["multiple choice", "multiple_choice"]], {}, class: "auto-update #{question_helper.index}"%>
-            <%= question_helper.text_field :contents %>
             <%= question_helper.label 'Delete' %>
             <%= question_helper.check_box :_destroy %>
+            <%= question_helper.text_field :contents %>
             <% question_type = @quiz.questions[question_helper.index].question_type %>
             <% if question_type != 'open_ended' && question_type != nil %>
               <div id="choice-container-<%= question_helper.index %>">
                 <%= question_helper.fields_for :choices do |choice_helper|%>
                   <%= choice_helper.label "Option #{choice_helper.index+1}" %>
-                  <%= choice_helper.text_field :contents %>
                   <%= question_helper.label 'Delete' %>
                   <%= choice_helper.check_box :_destroy,{},class: "auto-update" %>
+                  <%= choice_helper.text_field :contents %>
                 <% end %>
                 <%= f.submit "Add Option to question #{question_helper.index + 1}" %>
               </div>

@@ -7,5 +7,4 @@ class Answer < ApplicationRecord
   has_one :question, through: :question_choice, inverse_of: :choices
   has_many :response_answers, dependent: :destroy
   has_many :responses, through: :response_answers
-  validates :contents, presence: true
 end

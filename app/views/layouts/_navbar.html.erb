@@ -1,4 +1,4 @@
-<ul>
+<div class="topnav">
   <% if user_signed_in? %>
     <%= render 'layouts/logged_in_nav' %>
   <% else %>
@@ -8,4 +8,4 @@
     <%= render 'layouts/admin_nav' %>
   <% end %>
   <%= render 'layouts/all_users_nav' %>
-</ul>
+</div>

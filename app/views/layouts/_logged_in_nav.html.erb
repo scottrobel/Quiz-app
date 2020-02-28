@@ -1,3 +1,3 @@
-<li><%= link_to "Your Profile", user_path(current_user) %></li>
-<li> <%= link_to 'Log out', destroy_user_session_path, method: :delete %> </li>
-<li><%= link_to 'Take a Quiz', quizzes_path %></li>
+<%= navbar_link("Your Profile", user_path(current_user)) %>
+<%= navbar_link('Log out', destroy_user_session_path, method: :delete) %>
+<%= navbar_link('Take a Quiz', quizzes_path) %>

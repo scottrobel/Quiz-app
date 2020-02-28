@@ -34,8 +34,6 @@ class QuizzesController < ApplicationController
       if @quiz.save
         flash[:notice] = 'Quiz Created'
         redirect_to quizzes_path
-      else
-        flash.now[:alert] = @quiz.errors.full_messages.first
       end
     end
     respond_to do |format|
@@ -50,9 +48,7 @@ class QuizzesController < ApplicationController
 
   def update
     @quiz = Quiz.find_by(id: params[:id])
-    if !@quiz.update(quiz_update_params)
-      flash[:alert] = @quiz.errors.full_messages.first
-    else
+    if @quiz.update(quiz_update_params)
       if params[:commit] == 'Add Question'
         @quiz.questions.build
       elsif params[:commit].match?(/Add Option to question \d+/)

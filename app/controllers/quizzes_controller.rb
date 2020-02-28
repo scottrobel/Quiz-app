@@ -8,6 +8,10 @@ class QuizzesController < ApplicationController
     @quiz = Quiz.new
   end
 
+  def show
+    @quiz = Quiz.find_by(id: params[:id])
+  end
+
   def index
     @quizzes = current_user.quizzes   
   end

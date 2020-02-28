@@ -4,8 +4,9 @@ class ResponsesController < ApplicationController
   include QuizzesHelper
   before_action :require_quiz_exists, only: %i[new create]
   before_action :authenticate_user!
-  before_action :require_admin, only: %i[show index]
+  before_action :require_admin, only: %i[index]
   before_action :require_has_not_taken_quiz, only: %i[new create]
+  before_action :require_admin_or_own_response, only: %i[show]
   def new
     quiz = Quiz.find_by(id: params[:quiz_id])
     @response = Response.new

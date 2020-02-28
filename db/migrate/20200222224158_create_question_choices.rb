@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateQuestionChoices < ActiveRecord::Migration[6.0]
   def change
     create_table :question_choices do |t|

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class ResponsesController < ApplicationController
   include QuizzesHelper
-  before_action :require_quiz_exists, only: [:new, :create]
+  before_action :require_quiz_exists, only: %i[new create]
   before_action :authenticate_user!
-  before_action :require_admin, only: [:show, :index]
-  before_action :require_has_not_taken_quiz, only: [:new, :create]
+  before_action :require_admin, only: %i[show index]
+  before_action :require_has_not_taken_quiz, only: %i[new create]
   def new
     quiz = Quiz.find_by(id: params[:quiz_id])
     @response = Response.new
@@ -13,7 +15,7 @@ class ResponsesController < ApplicationController
   def create
     response = build_response
     if response.save && save_question_answers
-      flash[:notice] = "Response Recorded!"
+      flash[:notice] = 'Response Recorded!'
       redirect_to root_path
     else
       render :new
@@ -24,8 +26,8 @@ class ResponsesController < ApplicationController
     @response = Response.find_by(id: params[:id])
     @user = @response.user
     @question_answer_pairs = @response.answers.group_by do |answer|
-                               answer.answers_of.first
-                             end
+      answer.answers_of.first
+    end
   end
 
   def index
@@ -82,8 +84,6 @@ class ResponsesController < ApplicationController
   # rails inserts a hidden blank field
   # this removes it
   def remove_blank_answer_ids(answer_ids)
-    answer_ids.select do |answer_id|
-      !answer_id.blank?
-    end
+    answer_ids.reject(&:blank?)
   end
 end

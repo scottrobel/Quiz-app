@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   include UsersHelper
   before_action :require_admin_or_own_profile, only: [:show]

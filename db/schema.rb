@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,83 +12,82 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_22_224810) do
-
-  create_table "answers", force: :cascade do |t|
-    t.string "contents"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+ActiveRecord::Schema.define(version: 20_200_222_224_810) do
+  create_table 'answers', force: :cascade do |t|
+    t.string 'contents'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "question_answers", force: :cascade do |t|
-    t.integer "question_id", null: false
-    t.integer "answer_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["answer_id"], name: "index_question_answers_on_answer_id"
-    t.index ["question_id"], name: "index_question_answers_on_question_id"
+  create_table 'question_answers', force: :cascade do |t|
+    t.integer 'question_id', null: false
+    t.integer 'answer_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['answer_id'], name: 'index_question_answers_on_answer_id'
+    t.index ['question_id'], name: 'index_question_answers_on_question_id'
   end
 
-  create_table "question_choices", force: :cascade do |t|
-    t.integer "question_id", null: false
-    t.integer "answer_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["answer_id"], name: "index_question_choices_on_answer_id"
-    t.index ["question_id"], name: "index_question_choices_on_question_id"
+  create_table 'question_choices', force: :cascade do |t|
+    t.integer 'question_id', null: false
+    t.integer 'answer_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['answer_id'], name: 'index_question_choices_on_answer_id'
+    t.index ['question_id'], name: 'index_question_choices_on_question_id'
   end
 
-  create_table "questions", force: :cascade do |t|
-    t.string "contents"
-    t.integer "quiz_id", null: false
-    t.integer "question_type"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["quiz_id"], name: "index_questions_on_quiz_id"
+  create_table 'questions', force: :cascade do |t|
+    t.string 'contents'
+    t.integer 'quiz_id', null: false
+    t.integer 'question_type'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['quiz_id'], name: 'index_questions_on_quiz_id'
   end
 
-  create_table "quizzes", force: :cascade do |t|
-    t.integer "creator_id"
-    t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["creator_id"], name: "index_quizzes_on_creator_id"
+  create_table 'quizzes', force: :cascade do |t|
+    t.integer 'creator_id'
+    t.string 'title'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['creator_id'], name: 'index_quizzes_on_creator_id'
   end
 
-  create_table "response_answers", force: :cascade do |t|
-    t.integer "response_id", null: false
-    t.integer "answer_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["answer_id"], name: "index_response_answers_on_answer_id"
-    t.index ["response_id"], name: "index_response_answers_on_response_id"
+  create_table 'response_answers', force: :cascade do |t|
+    t.integer 'response_id', null: false
+    t.integer 'answer_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['answer_id'], name: 'index_response_answers_on_answer_id'
+    t.index ['response_id'], name: 'index_response_answers_on_response_id'
   end
 
-  create_table "responses", force: :cascade do |t|
-    t.integer "quiz_id"
-    t.integer "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["quiz_id", "user_id"], name: "index_responses_on_quiz_id_and_user_id", unique: true
-    t.index ["quiz_id"], name: "index_responses_on_quiz_id"
-    t.index ["user_id"], name: "index_responses_on_user_id"
+  create_table 'responses', force: :cascade do |t|
+    t.integer 'quiz_id'
+    t.integer 'user_id'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index %w[quiz_id user_id], name: 'index_responses_on_quiz_id_and_user_id', unique: true
+    t.index ['quiz_id'], name: 'index_responses_on_quiz_id'
+    t.index ['user_id'], name: 'index_responses_on_user_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.integer "user_type", default: 0, null: false
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.datetime "remember_created_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
+  create_table 'users', force: :cascade do |t|
+    t.integer 'user_type', default: 0, null: false
+    t.string 'email', default: '', null: false
+    t.string 'encrypted_password', default: '', null: false
+    t.datetime 'remember_created_at'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['email'], name: 'index_users_on_email', unique: true
   end
 
-  add_foreign_key "question_answers", "answers"
-  add_foreign_key "question_answers", "questions"
-  add_foreign_key "question_choices", "answers"
-  add_foreign_key "question_choices", "questions"
-  add_foreign_key "questions", "quizzes"
-  add_foreign_key "response_answers", "answers"
-  add_foreign_key "response_answers", "responses"
+  add_foreign_key 'question_answers', 'answers'
+  add_foreign_key 'question_answers', 'questions'
+  add_foreign_key 'question_choices', 'answers'
+  add_foreign_key 'question_choices', 'questions'
+  add_foreign_key 'questions', 'quizzes'
+  add_foreign_key 'response_answers', 'answers'
+  add_foreign_key 'response_answers', 'responses'
 end

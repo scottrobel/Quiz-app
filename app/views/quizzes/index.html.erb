@@ -1,10 +1,8 @@
 <div class="top-message">Take a Quiz</div>
 <% if @quizzes.any? %>
-  <ul>
   <% @quizzes.each do |quiz| %>
-    <li><%= link_to quiz.title, new_quiz_response_path(quiz) %></li>
+    <div class="top-message"><%= link_to quiz.title, new_quiz_response_path(quiz) %></div>
   <% end %>
-  </ul>
 <% else %>
-  <div>There are no more quizzes available!</div>
+  <div class="top-message">There are no more quizzes available!</div>
 <% end %>

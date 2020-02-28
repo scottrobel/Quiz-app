@@ -1,12 +1,14 @@
-<%= form_for @response do |f| %>
-  <div class="top-message"><%= @response.quiz.title %></div>
-  <%= render 'responses/response_errors' %>
-  <%= f.hidden_field :quiz_id %>
-  <% @response.quiz.questions.each do |question| %>
-    <%= f.fields_for question, index: question.id do |question_helper| %>
-      <%= question_helper.label question.contents %>
-      <%= render "responses/#{question.question_type}_input", question: question, question_helper: question_helper %>
+<div class="form-container">
+  <%= form_for @response do |f| %>
+    <div class="top-message"><%= @response.quiz.title %></div>
+    <%= render 'responses/response_errors' %>
+    <%= f.hidden_field :quiz_id %>
+    <% @response.quiz.questions.each do |question| %>
+      <%= f.fields_for question, index: question.id do |question_helper| %>
+        <%= question_helper.label question.contents %>
+        <%= render "responses/#{question.question_type}_input", question: question, question_helper: question_helper %>
+      <% end %>
     <% end %>
+    <%= f.submit %>
   <% end %>
-  <%= f.submit %>
-<% end %>
+<div>

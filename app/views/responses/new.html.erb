@@ -1,6 +1,6 @@
-<%= render 'responses/response_errors' %>
 <%= form_for @response do |f| %>
-  <div><%= @response.quiz.title %></div>
+  <div class="top-message"><%= @response.quiz.title %></div>
+  <%= render 'responses/response_errors' %>
   <%= f.hidden_field :quiz_id %>
   <% @response.quiz.questions.each do |question| %>
     <%= f.fields_for question, index: question.id do |question_helper| %>

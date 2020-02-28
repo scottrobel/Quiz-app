@@ -1,3 +1,4 @@
+<div class="top-message"><%= "#{yield(:action)} Quiz" %></div>
 <%= render 'quizzes/quiz_errors' %>
 <%= form_for @quiz, remote: true do |f| %>
   <%= f.label :title %>

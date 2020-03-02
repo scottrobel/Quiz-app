@@ -32,10 +32,6 @@ module QuizzesHelper
     end
   end
 
-  def response_params
-    params.require(:response).permit(:quiz_id, questions: [answers: [:contents, answer_ids: []]])
-  end
-
   def require_admin_or_own_response
     unless current_user.admin_user? || Response.find_by(id: params[:id]).user_id == current_user.id
       flash[:alert] = "You must be an admin to view other users Responses!"

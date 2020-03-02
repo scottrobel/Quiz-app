@@ -6,7 +6,7 @@ class QuizzesController < ApplicationController
   before_action :require_admin, except: [:index]
   before_action :require_own_quiz, only: %i[edit update]
   def new
-    @question_type_input = [["open ended", "open_ended"], ["select one", "select_one"], ["multiple choice", "multiple_choice"]]
+    @question_type_input = [["open ended", "open_ended"], ["select one", "select_one"], ["select multiple", "select_multiple"]]
     @quiz = Quiz.new
   end
 
@@ -29,7 +29,7 @@ class QuizzesController < ApplicationController
       @quiz.questions.build
     elsif params[:commit].match?(/Add Option to question \d+/)
       question_number = params[:commit].match(/Add Option to question (\d+)/)[1].to_i - 1
-      @quiz.questions[question_number].choices.build
+      @quiz.questions[question_number].answers.build
     elsif params[:commit] == 'Create Quiz'
       if @quiz.save
         flash[:notice] = 'Quiz Created'
@@ -68,10 +68,10 @@ class QuizzesController < ApplicationController
   private
 
   def quiz_params
-    params.require(:quiz).permit(:title, questions_attributes: [:contents, :question_type, :_destroy, choices_attributes: %i[contents _destroy]])
+    params.require(:quiz).permit(:title, questions_attributes: [:contents, :question_type, :_destroy, answers_attributes: %i[contents _destroy]])
   end
 
   def quiz_update_params
-    params.require(:quiz).permit(:title, :id, questions_attributes: [:contents, :question_type, :_destroy, :id, choices_attributes: %i[contents _destroy id]])
+    params.require(:quiz).permit(:title, :id, questions_attributes: [:contents, :question_type, :_destroy, :id, answers_attributes: %i[contents _destroy id]])
   end
 end

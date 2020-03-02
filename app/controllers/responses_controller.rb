@@ -16,7 +16,6 @@ class ResponsesController < ApplicationController
   end
 
   def create
-    debugger
     @response = Response.new(response_params)
     @response.user = current_user
     if @response.save

@@ -53,7 +53,7 @@ class QuizzesController < ApplicationController
         @quiz.questions.build
       elsif params[:commit].match?(/Add Option to question \d+/)
         question_number = params[:commit].match(/Add Option to question (\d+)/)[1].to_i - 1
-        @quiz.questions[question_number].choices.build
+        @quiz.questions[question_number].answers.build
       elsif params[:commit] == 'Update Quiz'
         flash[:notice] = 'Quiz Updated'
         redirect_to root_path

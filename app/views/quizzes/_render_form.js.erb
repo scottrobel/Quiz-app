@@ -1,6 +1,2 @@
 $('#page-wraper').html("<%= j render "quizzes/form" %>");
-$('.auto-update').change(updateForm);
-$('input[type="checkbox"]').change(updateForm);
-function updateForm(){
-  $("#update_list").click();
-}
+$('.auto-update').change(submitFormData);

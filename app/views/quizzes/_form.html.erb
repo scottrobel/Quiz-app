@@ -9,7 +9,7 @@
               <%= question_helper.label "Question #{question_helper.index + 1}" %>
               <%= question_helper.select :question_type, [["select one", "select_one"],["select multiple", "select_multiple"],["open ended", "open_ended"]], {}, class: "auto-update #{question_helper.index}"%>
               <%= question_helper.label 'Delete' %>
-              <%= question_helper.check_box :_destroy %>
+              <%= question_helper.check_box :_destroy,class: "auto-update" %>
               <%= question_helper.text_field :contents %>
               <% question_type = @quiz.questions[question_helper.index].question_type %>
               <% if question_type != 'open_ended' %>
@@ -17,7 +17,7 @@
                   <%= question_helper.fields_for :answers do |choice_helper|%>
                     <%= choice_helper.label "Option #{choice_helper.index+1}" %>
                     <%= question_helper.label 'Delete' %>
-                    <%= choice_helper.check_box :_destroy,{},class: "auto-update" %>
+                    <%= choice_helper.check_box :_destroy,class: "auto-update" %>
                     <%= choice_helper.text_field :contents %>
                   <% end %>
                   <div class="form-submit-button add-option" data-action="add-option" data-question-index="<%= question_helper.index %>">Add Option</div>
@@ -25,7 +25,6 @@
               <% end %>
           <% end %>
       </div>
-    <%= f.submit 'Update Form', id: :update_list%>
     <div class="form-submit-button" data-action="add-question">Add Question</div>
     <%= f.submit %>
   <% end %>
@@ -61,4 +60,5 @@ $(document).ready(function(){
     element.addEventListener('click', submitFormData)
   });
 });
+$('.auto-update').change(submitFormData);
 </script>

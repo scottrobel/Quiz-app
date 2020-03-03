@@ -23,6 +23,7 @@
   background-color: $primary-color;
   position: sticky;
   top: 0;
+  justify-content: center;
 }
 .topnav > a{
   flex-direction: row;
@@ -32,6 +33,7 @@
   text-decoration: none;
   color: white;
   transition-duration: 0.5s;
+  flex-grow: 1;
 }
 .bold-link{
   text-decoration: none;

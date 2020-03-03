@@ -20,13 +20,45 @@
                     <%= choice_helper.check_box :_destroy,{},class: "auto-update" %>
                     <%= choice_helper.text_field :contents %>
                   <% end %>
-                  <%= f.submit "Add Option to question #{question_helper.index + 1}" %>
+                  <div class="form-submit-button add-option" data-action="add-option" data-question-index="<%= question_helper.index %>">Add Option</div>
                 </div>
               <% end %>
           <% end %>
       </div>
     <%= f.submit 'Update Form', id: :update_list%>
-    <%= f.submit 'Add Question'%>
+    <div class="form-submit-button" data-action="add-question">Add Question</div>
     <%= f.submit %>
   <% end %>
 </div>
+<script>
+function formHash(){
+  var formData = $("form").serializeArray();
+  var data = {};
+  $(formData).each(function(index, obj){
+      data[obj.name] = obj.value;
+  });
+  return data;
+}
+function formUrl(){
+  return $('form').attr('action');
+}
+function submitFormData(e){
+  let formData = formHash();
+  let clickedButton = $(e.toElement);
+  let action = clickedButton.attr('data-action');
+  formData['change-action'] = action;
+  if(action == 'add-option'){
+    formData['question-index'] = clickedButton.attr('data-question-index');
+  }
+  $.ajax({
+  type: "POST",
+  url: formUrl(),
+  data: formData
+  });
+}
+$(document).ready(function(){
+  document.querySelectorAll('.form-submit-button').forEach(function(element){
+    element.addEventListener('click', submitFormData)
+  });
+});
+</script>

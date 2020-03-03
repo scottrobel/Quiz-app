@@ -25,11 +25,11 @@ class QuizzesController < ApplicationController
   def create
     @quiz = Quiz.new(quiz_params)
     @quiz.creator = current_user
-    if params[:commit] == 'Add Question'
+    if params['change-action'] == 'add-question'
       @quiz.questions.build
-    elsif params[:commit].match?(/Add Option to question \d+/)
-      question_number = params[:commit].match(/Add Option to question (\d+)/)[1].to_i - 1
-      @quiz.questions[question_number].answers.build
+    elsif params['change-action'] == 'add-option'
+      question_number = params['question-index']
+      @quiz.questions[question_number.to_i].answers.build
     elsif params[:commit] == 'Create Quiz'
       if @quiz.save
         flash[:notice] = 'Quiz Created'
@@ -37,7 +37,6 @@ class QuizzesController < ApplicationController
       end
     end
     respond_to do |format|
-      format.html { render :new }
       format.js {}
     end
   end
@@ -49,18 +48,17 @@ class QuizzesController < ApplicationController
   def update
     @quiz = Quiz.find_by(id: params[:id])
     if @quiz.update(quiz_update_params)
-      if params[:commit] == 'Add Question'
+      if params['change-action'] == 'add-question'
         @quiz.questions.build
-      elsif params[:commit].match?(/Add Option to question \d+/)
-        question_number = params[:commit].match(/Add Option to question (\d+)/)[1].to_i - 1
-        @quiz.questions[question_number].answers.build
+      elsif params['change-action'] == 'add-option'
+        question_number = params['question-index']
+        @quiz.questions[question_number.to_i].answers.build
       elsif params[:commit] == 'Update Quiz'
         flash[:notice] = 'Quiz Updated'
         redirect_to root_path
       end
     end
     respond_to do |format|
-      format.html { render :edit }
       format.js {}
     end
   end

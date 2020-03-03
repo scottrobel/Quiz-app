@@ -7,7 +7,7 @@
       <div class="question-container">
           <%= f.fields_for :questions do |question_helper|%>
               <%= question_helper.label "Question #{question_helper.index + 1}" %>
-              <%= question_helper.select :question_type, [["select one", "select_one"],["select multiple", "select_multiple"],["open ended", "open_ended"]], {}, class: "auto-update #{question_helper.index}"%>
+              <%= question_helper.select :question_type, [["drop down", "drop_down"],["check boxes", "check_boxes"],["open ended", "open_ended"]], {}, class: "auto-update #{question_helper.index}"%>
               <%= question_helper.label 'Delete' %>
               <%= question_helper.check_box :_destroy,class: "auto-update" %>
               <%= question_helper.text_field :contents %>

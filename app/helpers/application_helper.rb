@@ -11,7 +11,7 @@ module ApplicationHelper
     end
   end
 
-  def navbar_link(text, link, html_params={})
+  def navbar_link(text, link, html_params = {})
     html_params[:class] = navbar_link_class(link)
     link_to text, link, html_params
   end

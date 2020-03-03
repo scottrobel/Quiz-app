@@ -29,9 +29,7 @@ class ResponsesController < ApplicationController
   def show
     @response = Response.find_by(id: params[:id])
     @user = @response.user
-    @question_answer_pairs = @response.answers.includes(:question).group_by do |answer|
-      answer.question
-    end
+    @question_answer_pairs = @response.answers.includes(:question).group_by(&:question)
   end
 
   def index
@@ -41,6 +39,6 @@ class ResponsesController < ApplicationController
   private
 
   def response_params
-    params.require(:response).permit(:quiz_id, answer_ids: [],answers_attributes: [:question_id, :contents])
+    params.require(:response).permit(:quiz_id, answer_ids: [], answers_attributes: %i[question_id contents])
   end
 end

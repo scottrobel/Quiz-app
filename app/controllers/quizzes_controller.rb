@@ -6,7 +6,7 @@ class QuizzesController < ApplicationController
   before_action :require_admin, except: [:index]
   before_action :require_own_quiz, only: %i[edit update]
   def new
-    @question_type_input = [["open ended", "open_ended"], ["select one", "select_one"], ["select multiple", "select_multiple"]]
+    @question_type_input = [['open ended', 'open_ended'], ['select one', 'select_one'], ['select multiple', 'select_multiple']]
     @quiz = Quiz.new
   end
 

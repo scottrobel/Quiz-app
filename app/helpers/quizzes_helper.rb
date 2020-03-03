@@ -34,7 +34,7 @@ module QuizzesHelper
 
   def require_admin_or_own_response
     unless current_user.admin_user? || Response.find_by(id: params[:id]).user_id == current_user.id
-      flash[:alert] = "You must be an admin to view other users Responses!"
+      flash[:alert] = 'You must be an admin to view other users Responses!'
       redirect_to root_path
     end
   end

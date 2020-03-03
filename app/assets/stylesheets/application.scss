@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  */
- $primary-color: rgb(60, 170, 45);
+ $primary-color: #50b6bb;
  body{
   margin: 0;
   background-image: url("https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square.png");
@@ -305,14 +305,6 @@ textarea{
   text-decoration: none;
   transition-duration: 0.5s;
 }
-.event-top-options a.accept:hover{
-  background-color: rgb(48, 218, 32);
-  color: white;
-}
-.event-top-options a.decline:hover{
-  background-color: rgb(218, 19, 19);
-  color: white;
-}
 .event-box{
   box-shadow: 10px 10px grey;
 }
@@ -332,7 +324,7 @@ textarea{
 .form-submit-button{
   text-align: center;
   padding: 7px;
-  color: #3caa2d;
+  color: $primary-color;
   background-color: white;
   border-radius: 5px;
   margin-top: 10px;

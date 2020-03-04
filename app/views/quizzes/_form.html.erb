@@ -54,8 +54,7 @@ function submitFormData(e){
     formData[key] = '1'; 
   }//checks if an element inside an svg was clicked
   else if(clickedButton.closest('svg').length == 1){
-    clickedButton = clickedButton.closest('svg')
-    console.log(clickedButton)
+    clickedButton = clickedButton.closest('svg');
     key = clickedButton.attr('data-param-key');
     formData[key] = '1'; 
   }
@@ -72,9 +71,6 @@ $(document).ready(function(){
   document.querySelectorAll('.delete-button').forEach(function(element){
     element.addEventListener('click', submitFormData)
   });
+  $('.auto-update').change(submitFormData);
 });
-$('.auto-update').change(submitFormData);
-function getParentSvg(element){
-
-}
 </script>

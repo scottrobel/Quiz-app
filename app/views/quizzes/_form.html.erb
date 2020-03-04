@@ -8,17 +8,19 @@
           <%= f.fields_for :questions do |question_helper|%>
               <%= question_helper.label "Question #{question_helper.index + 1}" %>
               <%= question_helper.select :question_type, [["drop down", "drop_down"],["check boxes", "check_boxes"],["open ended", "open_ended"]], {}, class: "auto-update #{question_helper.index}"%>
-              <%= question_helper.label 'Delete' %>
-              <%= question_helper.check_box :_destroy,class: "auto-update" %>
-              <%= question_helper.text_field :contents %>
+              <div class="text-box-container">
+                <%= question_helper.text_field :contents %>
+                <%= render 'quizzes/delete_button', delete_button_params('question', question_helper.index) %>
+              </div>
               <% question_type = @quiz.questions[question_helper.index].question_type %>
               <% if question_type != 'open_ended' %>
                 <div id="choice-container-<%= question_helper.index %>">
                   <%= question_helper.fields_for :answers do |choice_helper|%>
                     <%= choice_helper.label "Option #{choice_helper.index+1}" %>
-                    <%= question_helper.label 'Delete' %>
-                    <%= choice_helper.check_box :_destroy,class: "auto-update" %>
-                    <%= choice_helper.text_field :contents %>
+                    <div class="text-box-container">
+                      <%= choice_helper.text_field :contents %>
+                      <%= render 'quizzes/delete_button', delete_button_params('choice', question_helper.index, choice_helper.index) %>
+                    </div>
                   <% end %>
                   <div class="form-submit-button add-option" data-action="add-option" data-question-index="<%= question_helper.index %>">Add Option</div>
                 </div>
@@ -42,12 +44,21 @@ function formUrl(){
   return $('form').attr('action');
 }
 function submitFormData(e){
-  let formData = formHash();
-  let clickedButton = $(e.toElement);
-  let action = clickedButton.attr('data-action');
+  formData = formHash();
+  clickedButton = $(e.toElement);
+  action = clickedButton.attr('data-action');
   formData['change-action'] = action;
   if(action == 'add-option'){
     formData['question-index'] = clickedButton.attr('data-question-index');
+  }else if(action == 'delete-field'){
+    key = clickedButton.attr('data-param-key');
+    formData[key] = '1'; 
+  }//checks if an element inside an svg was clicked
+  else if(clickedButton.closest('svg').length == 1){
+    clickedButton = clickedButton.closest('svg')
+    console.log(clickedButton)
+    key = clickedButton.attr('data-param-key');
+    formData[key] = '1'; 
   }
   $.ajax({
   type: "POST",
@@ -59,6 +70,12 @@ $(document).ready(function(){
   document.querySelectorAll('.form-submit-button').forEach(function(element){
     element.addEventListener('click', submitFormData)
   });
+  document.querySelectorAll('.delete-button').forEach(function(element){
+    element.addEventListener('click', submitFormData)
+  });
 });
 $('.auto-update').change(submitFormData);
+function getParentSvg(element){
+
+}
 </script>

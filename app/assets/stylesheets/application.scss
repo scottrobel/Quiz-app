@@ -337,3 +337,20 @@ div.check_boxes{
   display: flex;
   flex-direction: column;
 }
+.delete-button{
+  width: 35px;
+  fill: black;
+  display: block;
+}
+.delete-button>{
+  pointer-events: none;
+}
+.delete-button:hover{
+  fill: red;
+}
+.text-box-container{
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  border-radius: 5px;
+}

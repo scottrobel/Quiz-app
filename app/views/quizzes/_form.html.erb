@@ -12,8 +12,7 @@
                 <%= question_helper.text_field :contents %>
                 <%= render 'quizzes/delete_button', delete_button_params('question', question_helper.index) %>
               </div>
-              <% question_type = @quiz.questions[question_helper.index].question_type %>
-              <% if question_type != 'open_ended' %>
+              <% unless question_helper.object.open_ended? %>
                 <div id="choice-container-<%= question_helper.index %>">
                   <%= question_helper.fields_for :answers do |choice_helper|%>
                     <%= choice_helper.label "Option #{choice_helper.index+1}" %>

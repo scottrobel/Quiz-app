@@ -39,12 +39,12 @@ module QuizzesHelper
     end
   end
 
-  def delete_button_params(type, question_index, choice_index=nil)
+  def delete_button_params(type, question_index, choice_index = nil)
     case type
     when 'question'
-      {param_key: "quiz[questions_attributes][#{question_index}][_destroy]"}
+      { param_key: "quiz[questions_attributes][#{question_index}][_destroy]" }
     when 'choice'
-      {param_key: "quiz[questions_attributes][#{question_index}][answers_attributes][#{choice_index}][_destroy]"}
+      { param_key: "quiz[questions_attributes][#{question_index}][answers_attributes][#{choice_index}][_destroy]" }
     end
   end
 end

@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  */
- $primary-color: #50b6bb;
+ $primary-color: #30BCED;
  body{
   margin: 0;
   background-image: url("https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square.png");
@@ -88,6 +88,7 @@ form{
   background-color: $primary-color;
   border-radius: 5px;
   margin: 0;
+  box-shadow: slategrey 10px 10px;
 }
 form, .form-group{
   display: flex;

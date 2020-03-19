@@ -1,6 +1,6 @@
 # Quiz App
 
-I was given the following assignment when applying to a job and this was the app I created from it!
+I was given the following assignment when applying to my current job.
 ```Description
 This is a web/Rails-based Quiz app that allows an administrator to create a Quiz with a series of questions and then allow other users to take the quiz and collect their answers. Think of it like a lightweight Google Forms.
 The app should support

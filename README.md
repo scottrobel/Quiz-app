@@ -1,7 +1,7 @@
 # Quiz App
 
 I was given the following assignment when applying to a job
-```Description
+`Description
 This is a web/Rails-based Quiz app that allows an administrator to create a Quiz with a series of questions and then allow other users to take the quiz and collect their answers. Think of it like a lightweight Google Forms.
 
 The app should support:
@@ -30,5 +30,5 @@ Personally, I would say don’t bother with tests. I’d rather see the app come
 Deployment
 The app will be deployed to Heroku. It can use the free tier services.
 
-All information will be stored in a SQL (Postgres) database.```
+All information will be stored in a SQL (Postgres) database.`
 This Was the app I created from this assignment!

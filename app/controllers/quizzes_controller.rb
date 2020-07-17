@@ -65,7 +65,7 @@ class QuizzesController < ApplicationController
   private
 
   def quiz_params
-    params.require(:quiz).permit(:title, questions_attributes: [:contents, :question_type, :_destroy, answers_attributes: %i[contents _destroy]])
+    params.require(:quiz).permit(:title, :top_label, :bottom_label, :right_label, :left_label, questions_attributes: [:contents, :question_type, :_destroy, answers_attributes: %i[contents _destroy]])
   end
 
   def quiz_update_params

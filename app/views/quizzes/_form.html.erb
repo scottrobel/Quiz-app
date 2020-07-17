@@ -4,10 +4,20 @@
   <%= form_for @quiz, remote: true do |f| %>
     <%= f.label :title %>
     <%= f.text_field :title %>
+    <%= f.label 'Top Section Name' %>
+    <%= f.text_field :top_label %>
+    <%= f.label 'Bottom Section Name' %>
+    <%= f.text_field :bottom_label %>
+    <%= f.label 'Right Section Name' %>
+    <%= f.text_field :right_label %>
+    <%= f.label 'Left Section Name' %>
+    <%= f.text_field :left_label %>
       <div class="question-container">
           <%= f.fields_for :questions do |question_helper|%>
               <%= question_helper.label "Question #{question_helper.index + 1}" %>
               <%= question_helper.select :question_type, [["drop down", "drop_down"],["check boxes", "check_boxes"],["open ended", "open_ended"]], {}, class: "auto-update #{question_helper.index}"%>
+              <%= question_helper.label "Question Axis" %>
+              <%= question_helper.select :axis, [["#{@quiz.top_label} / #{@quiz.bottom_label}", 'Y'], ["#{@quiz.left_label} / #{@quiz.right_label}", "X"]] %>
               <div class="text-box-container">
                 <%= question_helper.text_field :contents %>
                 <%= render 'quizzes/delete_button', delete_button_params('question', question_helper.index) %>
@@ -16,6 +26,7 @@
                 <div id="choice-container-<%= question_helper.index %>">
                   <%= question_helper.fields_for :answers do |choice_helper|%>
                     <%= choice_helper.label "Option #{choice_helper.index+1}" %>
+                    <%= choice_helper.select :value "" %>
                     <div class="text-box-container">
                       <%= choice_helper.text_field :contents %>
                       <%= render 'quizzes/delete_button', delete_button_params('choice', question_helper.index, choice_helper.index) %>

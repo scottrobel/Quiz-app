@@ -17,7 +17,7 @@ class QuizzesController < ApplicationController
   end
 
   def index
-    @quizzes = Quiz.all - current_user.taken_quizzes
+    @quizzes = Quiz.all
   end
 
   def create
@@ -68,6 +68,6 @@ class QuizzesController < ApplicationController
   end
 
   def quiz_update_params
-    params.require(:quiz).permit(:title, :id, questions_attributes: [:axis, :contents, :question_type, :_destroy, :id, answers_attributes: %i[value contents _destroy id]])
+    params.require(:quiz).permit(:top_label, :bottom_label, :right_label, :left_label, :title, :id, questions_attributes: [:axis, :contents, :question_type, :_destroy, :id, answers_attributes: %i[value contents _destroy id]])
   end
 end

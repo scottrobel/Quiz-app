@@ -6,7 +6,6 @@ class ResponsesController < ApplicationController
   before_action :require_quiz_exists, only: %i[new create]
   before_action :authenticate_user!
   before_action :require_has_not_taken_quiz, only: %i[new create]
-  before_action :require_admin_or_own_response, only: %i[show]
   before_action :require_answers_ids_belong_to_quiz, only: %i[create]
   def new
     quiz = Quiz.find_by(id: params[:quiz_id])

@@ -15,7 +15,7 @@
       <div class="question-container">
           <%= f.fields_for :questions do |question_helper|%>
               <%= question_helper.label "Question #{question_helper.index + 1}" %>
-              <%= question_helper.select :question_type, [["drop down", "drop_down"],["check boxes", "check_boxes"],["open ended", "open_ended"]], {}, class: "auto-update #{question_helper.index}"%>
+              <%= question_helper.select :question_type, [["drop down", "drop_down"]], {}, class: "auto-update #{question_helper.index}"%>
               <%= question_helper.label "Question Axis" %>
               <%= question_helper.select :axis, [["#{@quiz.top_label} / #{@quiz.bottom_label}", 'Y'], ["#{@quiz.right_label} / #{@quiz.left_label}", "X"]], {}, class: "auto-update" %>
               <div class="text-box-container">

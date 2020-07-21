@@ -361,3 +361,31 @@ div.check_boxes{
   color: #30BCED;
   margin-top: 40px;
 }
+.compass{
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+.compass-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 200pt 0;
+}
+.compass-img{
+  width: 300px;
+  height: 300px;
+}
+.compass-pointer{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  font-size: 18px;
+  transform: translate(-50%, -50%);
+  background-color: red;
+  border-radius: 50%;
+  border: 2px solid black;
+}

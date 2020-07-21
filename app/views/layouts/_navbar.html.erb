@@ -4,8 +4,5 @@
   <% else %>
     <%= render 'layouts/logged_out_nav' %>
   <% end %>
-  <% if current_user &. admin_user? %>
-    <%= render 'layouts/admin_nav' %>
-  <% end %>
   <%= render 'layouts/all_users_nav' %>
 </div>

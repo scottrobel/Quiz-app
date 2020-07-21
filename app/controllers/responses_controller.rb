@@ -5,7 +5,6 @@ class ResponsesController < ApplicationController
   include ResponsesHelper
   before_action :require_quiz_exists, only: %i[new create]
   before_action :authenticate_user!
-  before_action :require_admin, only: %i[index]
   before_action :require_has_not_taken_quiz, only: %i[new create]
   before_action :require_admin_or_own_response, only: %i[show]
   before_action :require_answers_ids_belong_to_quiz, only: %i[create]
@@ -20,7 +19,7 @@ class ResponsesController < ApplicationController
     @response.user = current_user
     if @response.save
       flash[:notice] = 'Response Recorded!'
-      redirect_to root_path
+      redirect_to @response
     else
       render :new
     end
@@ -29,14 +28,14 @@ class ResponsesController < ApplicationController
   def show
     @response = Response.find_by(id: params[:id])
     @user = @response.user
+    @quiz = @response.quiz
     @question_answer_pairs = @response.answers.includes(:question).group_by(&:question)
+    @chart_position = @response.chart_position
   end
 
   def index
     @quiz = Quiz.find_by(id: params[:quiz_id])
   end
-
-  private
 
   def response_params
     params.require(:response).permit(:quiz_id, answer_ids: [], answers_attributes: %i[question_id contents])

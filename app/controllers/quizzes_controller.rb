@@ -3,7 +3,6 @@
 class QuizzesController < ApplicationController
   include QuizzesHelper
   before_action :authenticate_user!
-  before_action :require_admin, except: [:index]
   before_action :require_own_quiz, only: %i[edit update]
   def new
     @quiz = Quiz.new
@@ -65,10 +64,10 @@ class QuizzesController < ApplicationController
   private
 
   def quiz_params
-    params.require(:quiz).permit(:title, :top_label, :bottom_label, :right_label, :left_label, questions_attributes: [:contents, :question_type, :_destroy, answers_attributes: %i[contents _destroy]])
+    params.require(:quiz).permit(:title, :top_label, :bottom_label, :right_label, :left_label, questions_attributes: [:axis, :contents, :question_type, :_destroy, answers_attributes: %i[value contents _destroy]])
   end
 
   def quiz_update_params
-    params.require(:quiz).permit(:title, :id, questions_attributes: [:contents, :question_type, :_destroy, :id, answers_attributes: %i[contents _destroy id]])
+    params.require(:quiz).permit(:title, :id, questions_attributes: [:axis, :contents, :question_type, :_destroy, :id, answers_attributes: %i[value contents _destroy id]])
   end
 end

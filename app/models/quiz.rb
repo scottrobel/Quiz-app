@@ -31,6 +31,6 @@ class Quiz < ApplicationRecord
       end.sum
       [axis, max_value]
     end.to_h
-    {'X' => (axis_max_values['X'] || 0), 'Y' => (axis_max_values['Y'] || 0)}
+    {'X' => axis_max_values['X'], 'Y' => axis_max_values['Y']}
   end
 end

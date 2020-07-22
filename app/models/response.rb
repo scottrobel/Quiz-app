@@ -28,6 +28,6 @@ class Response < ApplicationRecord
     xy_score = chart_points_hash
     xy_range = {'X' => (xy_max['X'] - xy_min['X']), 'Y' => (xy_max['Y'] - xy_min['Y'])}
     xy_absolute_score = {'X' => (xy_score['X'] - xy_min['X']), 'Y' => (xy_score['Y'] - xy_min['Y'])}
-    {'X' => (xy_absolute_score['X'].to_f / xy_range['X'] * 100), 'Y' => (xy_absolute_score['Y'].to_f / xy_range['Y'] * 100)}
+    {'X' => 100 - (xy_absolute_score['X'].to_f / xy_range['X'] * 100), 'Y' => 100 -(xy_absolute_score['Y'].to_f / xy_range['Y'] * 100)}
   end
 end

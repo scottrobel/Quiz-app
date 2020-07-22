@@ -26,8 +26,14 @@ class Response < ApplicationRecord
     xy_max = quiz.xy_max
     xy_min = quiz.xy_min
     xy_score = chart_points_hash
-    xy_range = {'X' => (xy_max['X'] - xy_min['X']), 'Y' => (xy_max['Y'] - xy_min['Y'])}
-    xy_absolute_score = {'X' => (xy_score['X'] - xy_min['X']), 'Y' => (xy_score['Y'] - xy_min['Y'])}
-    {'X' => 100 - (xy_absolute_score['X'].to_f / xy_range['X'] * 100), 'Y' => 100 -(xy_absolute_score['Y'].to_f / xy_range['Y'] * 100)}
+    {'X' => (axis_position(xy_min['X'], xy_max['X'], xy_score['X']) rescue 50), 'Y' => (axis_position(xy_min['Y'], xy_max['Y'], xy_score['Y'])rescue 50)}
+  end
+
+  private
+
+  def axis_position(min, max, score)
+    range = max - min
+    absolute_score = score - min
+    100 - (absolute_score.to_f / range * 100)
   end
 end

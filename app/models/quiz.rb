@@ -17,7 +17,7 @@ class Quiz < ApplicationRecord
     axis_max_values = axis_question_hash.map do |axis, questions|
       max_value = questions.map do |question|
         question.answers.map(&:value).max
-      end.sum
+      end.compact.sum
       [axis, max_value]
     end.to_h
     {'X' => axis_max_values['X'], 'Y' => axis_max_values['Y']}
@@ -27,7 +27,7 @@ class Quiz < ApplicationRecord
     axis_max_values = axis_question_hash.map do |axis, questions|
       max_value = questions.map do |question|
         question.answers.map(&:value).min
-      end.sum
+      end.compact.sum
       [axis, max_value]
     end.to_h
     {'X' => axis_max_values['X'], 'Y' => axis_max_values['Y']}

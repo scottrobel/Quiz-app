@@ -66,10 +66,8 @@ class QuizzesController < ApplicationController
     end
     @quiz.questions.order(:index).each_with_index do |question, question_index|
       question.index = question_index
-      question.save
       question.answers.order(:index).each_with_index do |answer, answer_index|
         answer.index = answer_index
-        answer.save
       end
     end
     respond_to do |format|

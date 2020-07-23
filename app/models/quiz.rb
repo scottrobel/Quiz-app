@@ -7,7 +7,6 @@ class Quiz < ApplicationRecord
   has_many :answers, through: :questions
   has_many :responses, dependent: :destroy
   accepts_nested_attributes_for :questions, allow_destroy: true
-  
   #== Instance Methods
 
   def axis_question_hash
@@ -32,5 +31,16 @@ class Quiz < ApplicationRecord
       [axis, max_value]
     end.to_h
     {'X' => axis_max_values['X'], 'Y' => axis_max_values['Y']}
+  end
+
+  def index_questions_and_answers
+    self.questions.includes(:answers).to_a.each_with_index do |question, question_index|
+      question.index = question_index
+      question.save
+      question.answers.each_with_index do |answer, answer_index|
+        answer.index = answer_index
+        answer.save
+      end
+    end
   end
 end

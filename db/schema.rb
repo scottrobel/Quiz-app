@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_21_064055) do
+ActiveRecord::Schema.define(version: 2020_07_23_031709) do
 
   create_table "answers", force: :cascade do |t|
     t.string "contents"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2020_07_21_064055) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "value"
+    t.integer "index"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -27,6 +28,7 @@ ActiveRecord::Schema.define(version: 2020_07_21_064055) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "axis"
+    t.integer "index"
     t.index ["quiz_id"], name: "index_questions_on_quiz_id"
   end
 

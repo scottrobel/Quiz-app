@@ -6,4 +6,8 @@ class Question < ApplicationRecord
   has_many :responses, through: :quiz
   has_many :answers, dependent: :destroy
   accepts_nested_attributes_for :answers, allow_destroy: true
+
+  #== Scopes
+
+  default_scope { order(:index) }
  end

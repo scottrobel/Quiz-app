@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Quiz < ApplicationRecord
+  #== Associations
   belongs_to :creator, class_name: 'User'
   has_many :questions, dependent: :destroy
   has_many :answers, through: :questions

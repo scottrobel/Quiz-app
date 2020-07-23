@@ -9,7 +9,6 @@ class Quiz < ApplicationRecord
   
   #== Instance Methods
 
-
   def axis_question_hash
     self.questions.includes(:answers).group_by(&:axis)
   end

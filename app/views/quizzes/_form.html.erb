@@ -26,7 +26,6 @@
               <% unless question_helper.object.open_ended? %>
                 <div id="choice-container-<%= question_helper.object.index %>">
                   <%= question_helper.fields_for :answers do |choice_helper|%>
-                    <%=  debugger if choice_helper.object.index.nil? %>
                     <%= choice_helper.label "Option #{choice_helper.object.index+1}" %>
                     <%= choice_helper.select :value, question_helper.object.axis == 'X' ? [["#{@quiz.left_label} +2", 2], ["#{@quiz.left_label} +1", 1], ["No Movement-+0", 0],["#{@quiz.right_label} +1", -1], ["#{@quiz.right_label} +2", -2]] : [["#{@quiz.top_label} +2", 2], ["#{@quiz.top_label} +1", 1], ["No Movement-+0", 0], ["#{@quiz.bottom_label} +1", -1], ["#{@quiz.bottom_label} +2", -2]], {}, class: "auto-update" %>
                     <%= choice_helper.hidden_field :index %>

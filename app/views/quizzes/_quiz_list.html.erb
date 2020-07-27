@@ -1,0 +1,29 @@
+<div class="top-message">
+  Take a Quiz
+  <%= select_tag 'sort_method', options_for_select({'Sort Quizzes by most to least popular' => 'response_count', 'Sort from Newest to Oldest' => 'created_at'}, params[:sort_method]) %>  
+</div>
+<% if @quizzes.any? %>
+  <% @quizzes.each do |quiz| %>
+    <div class="top-message"><%= link_to quiz.title, new_quiz_response_path(quiz) %></div>
+  <% end %>
+<% else %>
+  <div class="top-message">There are no more quizzes available!</div>
+<% end %>
+<script>
+function quizListParams(){
+  params = {
+    sort_method: $('#sort_method')[0].value
+  }
+  return params;
+}
+function updateQuizList(){
+  $.ajax({
+  type: "GET",
+  url: "<%= quizzes_path %>.js",
+  data: quizListParams()
+  });
+}
+$(document).ready(function(){
+  $('#sort_method').change(updateQuizList);
+});
+</script>

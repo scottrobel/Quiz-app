@@ -18,6 +18,15 @@ class QuizzesController < ApplicationController
 
   def index
     @quizzes = Quiz.all
+    if params['sort_method'] == 'response_count' || params[:sort_method].nil?
+      @quizzes = @quizzes.order('responses_count DESC')
+    elsif params['sort_method'] == 'created_at'
+      @quizzes = @quizzes.order('created_at DESC')
+    end
+    respond_to do |format|
+      format.js { }
+      format.html {}
+    end
   end
 
   def create

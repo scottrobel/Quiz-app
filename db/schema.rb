@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_23_031709) do
+ActiveRecord::Schema.define(version: 2020_07_26_172701) do
 
   create_table "answers", force: :cascade do |t|
     t.string "contents"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2020_07_23_031709) do
     t.text "bottom_label"
     t.text "right_label"
     t.text "left_label"
+    t.integer "responses_count", default: 0
     t.index ["creator_id"], name: "index_quizzes_on_creator_id"
   end
 

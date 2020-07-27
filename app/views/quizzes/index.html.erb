@@ -1,8 +1,3 @@
-<div class="top-message">Take a Quiz</div>
-<% if @quizzes.any? %>
-  <% @quizzes.each do |quiz| %>
-    <div class="top-message"><%= link_to quiz.title, new_quiz_response_path(quiz) %></div>
-  <% end %>
-<% else %>
-  <div class="top-message">There are no more quizzes available!</div>
-<% end %>
+<div id="quiz-index-wrapper">
+  <%= render 'quizzes/quiz_list' %>
+</div>

@@ -33,13 +33,22 @@ class Quiz < ApplicationRecord
     {'X' => axis_max_values['X'], 'Y' => axis_max_values['Y']}
   end
 
-  def index_questions_and_answers
-    self.questions.includes(:answers).to_a.each_with_index do |question, question_index|
+  def update_indexes
+    self.questions.to_a.sort_by(&:index).each_with_index do |question, question_index|
       question.index = question_index
       question.save
-      question.answers.each_with_index do |answer, answer_index|
+      question.answers.order(:index).each_with_index do |answer, answer_index|
         answer.index = answer_index
         answer.save
+      end
+    end
+  end
+
+  def create_indexes
+    self.questions.to_a.sort_by(&:index).each_with_index do |question, question_index|
+      question.index = question_index
+      question.answers.to_a.sort_by(&:index).each_with_index do |answer, answer_index|
+        answer.index = answer_index
       end
     end
   end

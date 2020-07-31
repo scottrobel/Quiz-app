@@ -44,12 +44,8 @@ class QuizzesController < ApplicationController
         redirect_to quizzes_path
       end
     end
-    @quiz.questions.to_a.sort_by(&:index).each_with_index do |question, question_index|
-      question.index = question_index
-      question.answers.to_a.sort_by(&:index).each_with_index do |answer, answer_index|
-        answer.index = answer_index
-      end
-    end
+    @quiz.questions.to_a.each(&:create_default_answers)
+    @quiz.create_indexes
     respond_to do |format|
       format.js {}
     end
@@ -57,6 +53,7 @@ class QuizzesController < ApplicationController
 
   def edit
     @quiz = Quiz.find_by(id: params[:id])
+    @quiz.create_indexes
   end
 
   def update
@@ -73,14 +70,9 @@ class QuizzesController < ApplicationController
         redirect_to root_path
       end
     end
-    @quiz.questions.order(:index).each_with_index do |question, question_index|
-      question.index = question_index
-      question.save
-      question.answers.order(:index).each_with_index do |answer, answer_index|
-        answer.index = answer_index
-        answer.save
-      end
-    end
+    @quiz.questions.to_a.each(&:update_default_answers)
+    @quiz.create_indexes
+    
     respond_to do |format|
       format.js {}
     end

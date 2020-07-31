@@ -15,7 +15,7 @@
       <div class="question-container">
           <%= f.fields_for :questions do |question_helper|%>
               <%= question_helper.label "Question #{question_helper.object.index + 1}" %>
-              <%= question_helper.select :question_type, [["drop down", "drop_down"]], {}, class: "auto-update #{question_helper.object.index}"%>
+              <%= question_helper.select :question_type, [["drop down", "drop_down"], ['Agree/Disagree', 'agree_equals_positive'], ['Agree/Disagree(Reversed Values)', 'agree_equals_negitive']], {}, class: "auto-update #{question_helper.object.index}"%>
               <%= question_helper.label "Question Axis" %>
               <%= question_helper.select :axis, [["#{@quiz.top_label} / #{@quiz.bottom_label}", 'Y'], ["#{@quiz.right_label} / #{@quiz.left_label}", "X"]], {}, class: "auto-update" %>
               <%= question_helper.hidden_field :index %>
@@ -23,19 +23,11 @@
                 <%= question_helper.text_field :contents %>
                 <%= render 'quizzes/delete_button', delete_button_params('question', question_helper.object.index) %>
               </div>
-              <% unless question_helper.object.open_ended? %>
-                <div id="choice-container-<%= question_helper.object.index %>">
-                  <%= question_helper.fields_for :answers do |choice_helper|%>
-                    <%= choice_helper.label "Option #{choice_helper.object.index+1}" %>
-                    <%= choice_helper.select :value, question_helper.object.axis == 'X' ? [["#{@quiz.left_label} +2", 2], ["#{@quiz.left_label} +1", 1], ["No Movement-+0", 0],["#{@quiz.right_label} +1", -1], ["#{@quiz.right_label} +2", -2]] : [["#{@quiz.top_label} +2", 2], ["#{@quiz.top_label} +1", 1], ["No Movement-+0", 0], ["#{@quiz.bottom_label} +1", -1], ["#{@quiz.bottom_label} +2", -2]], {}, class: "auto-update" %>
-                    <%= choice_helper.hidden_field :index %>
-                    <div class="text-box-container">
-                      <%= choice_helper.text_field :contents %>
-                      <%= render 'quizzes/delete_button', delete_button_params('choice', question_helper.object.index, choice_helper.index) %>
-                    </div>
-                  <% end %>
-                  <div class="form-submit-button add-option" data-action="add-option" data-question-index="<%= question_helper.object.index %>">Add Option</div>
-                </div>
+              <% question_type = question_helper.object.question_type %>
+              <% if ['drop_down', 'check_boxes', nil].include?(question_type) %>
+                <%= render 'quizzes/form/read_write_question',{question_helper: question_helper} %>
+              <% elsif ['agree_equals_positive', 'agree_equals_negitive'].include?(question_type) %>
+                <%= render 'quizzes/form/read_only_question',{question_helper: question_helper}  %>
               <% end %>
           <% end %>
       </div>

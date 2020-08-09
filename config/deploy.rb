@@ -1,4 +1,4 @@
-set :application, "compasshub"
+set :application, "quizapp"
 set :repo_url, "git@github.com:scottrobel/Quiz-app.git"
 
 # Deploy to the user's home directory

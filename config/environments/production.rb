@@ -2,7 +2,7 @@
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  config.force_ssl = true
   # Code is not reloaded between requests.
   config.cache_classes = true
   config.action_mailer.default_url_options = { host: 'scottrobelquizapp.herokuapp.com', port: 80 }

@@ -49,7 +49,7 @@ function formUrl(){
 }
 function submitFormData(e){
   formData = formHash();
-  clickedButton = $(e.toElement);
+  clickedButton = $(e.target);
   action = clickedButton.attr('data-action');
   formData['change-action'] = action;
   if(action == 'add-option'){

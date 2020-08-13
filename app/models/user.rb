@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  enum user_type: %i[regular_user admin_user]
+  enum user_type: %i[regular_user admin_user guest_user]
   has_many :quizzes, foreign_key: 'creator_id', dependent: :destroy
   has_many :responses, dependent: :destroy
   has_many :taken_quizzes, through: :responses, class_name: 'Quiz', source: :quiz

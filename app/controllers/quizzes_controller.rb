@@ -2,7 +2,7 @@
 
 class QuizzesController < ApplicationController
   include QuizzesHelper
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index]
   before_action :require_own_quiz, only: %i[edit update]
   def new
     @quiz = Quiz.new

@@ -4,7 +4,6 @@ class ResponsesController < ApplicationController
   include QuizzesHelper
   include ResponsesHelper
   before_action :require_quiz_exists, only: %i[new create]
-  before_action :authenticate_user!
   before_action :require_answers_ids_belong_to_quiz, only: %i[create]
   before_action :require_admin_own_quiz_or_own_response, only: %i[show]
   def new

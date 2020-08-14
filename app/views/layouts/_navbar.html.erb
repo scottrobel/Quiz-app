@@ -1,8 +1,8 @@
 <div class="topnav">
+  <%= render 'layouts/all_users_nav' %>
   <% if current_user.guest_user? %>
     <%= render 'layouts/logged_out_nav' %>
   <% else %>
     <%= render 'layouts/logged_in_nav' %>
   <% end %>
-  <%= render 'layouts/all_users_nav' %>
 </div>

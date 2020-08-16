@@ -3,4 +3,5 @@
   <%= navbar_link "Take Quiz", (new_quiz_response_path(@quiz.id)) %>
   <%= navbar_link 'Edit Quiz', (edit_quiz_path(@quiz.id)) %>
   <%= navbar_link 'View Quiz Responses', quiz_responses_path(@quiz.id) %>
+  <%= navbar_link 'Change Compass Photo', new_quiz_compass_photo_path(@quiz) %>
 </div>

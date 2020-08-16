@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/users_quizzes', to: 'quizzes#users_quizzes'
   resources :quizzes, only: %i[new create edit update show index]
   resources :quizzes do
+    resources :compass_photos, only: %i[new create destroy]
     resources :responses, only: %i[new index]
   end
   resources :responses, only: %i[create show]

@@ -41,7 +41,7 @@ class QuizzesController < ApplicationController
     elsif params[:commit] == 'Create Quiz'
       if @quiz.save
         flash[:notice] = 'Quiz Created'
-        redirect_to quizzes_path
+        redirect_to new_quiz_compass_photo_path(@quiz)
       end
     end
     @quiz.questions.to_a.each(&:create_default_answers)
@@ -67,7 +67,7 @@ class QuizzesController < ApplicationController
         question = question.answers.build(index: question.answers.to_a.count)
       elsif params[:commit] == 'Update Quiz'
         flash[:notice] = 'Quiz Updated'
-        redirect_to root_path
+        redirect_to quiz_path(@quiz)
       end
     end
     @quiz.questions.to_a.each(&:update_default_answers)
@@ -81,7 +81,7 @@ class QuizzesController < ApplicationController
   private
 
   def quiz_params
-    params.require(:quiz).permit(:title, :top_label, :bottom_label, :right_label, :left_label, questions_attributes: [:index, :axis, :contents, :question_type, :_destroy, answers_attributes: %i[index value contents _destroy]])
+    params.require(:quiz).permit(:compass, :title, :top_label, :bottom_label, :right_label, :left_label, questions_attributes: [:index, :axis, :contents, :question_type, :_destroy, answers_attributes: %i[index value contents _destroy]])
   end
 
   def quiz_update_params

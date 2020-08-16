@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Quiz < ApplicationRecord
+  #== File Attachments
+  has_one_attached :compass
+  
   #== Associations
   belongs_to :creator, class_name: 'User'
   has_many :questions, dependent: :destroy

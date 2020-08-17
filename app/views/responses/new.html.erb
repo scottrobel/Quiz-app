@@ -4,7 +4,7 @@
     <%= render 'responses/response_errors' %>
     <%= f.hidden_field :quiz_id %>
     <% @response.quiz.questions.each do |question| %>
-    <%= f.label question.contents %>
+    <div class="question-text"><%= question.contents %></div>
     <%= render "responses/#{question.question_type}_input", question: question, f: f %>
     <% end %>
     <%= f.submit %>

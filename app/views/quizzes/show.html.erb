@@ -4,4 +4,13 @@
   <%= navbar_link 'Edit Quiz', (edit_quiz_path(@quiz.id)) %>
   <%= navbar_link 'View Quiz Responses', quiz_responses_path(@quiz.id) %>
   <%= navbar_link 'Change Compass Photo', edit_quiz_compass_photo_path(@quiz) %>
+  <div class="quiz-delete-button">Delete Quiz</div>
+  <%= link_to 'Hidden Button', quiz_path(@quiz.id), method: :delete, class: "hidden quiz-delete-link" %>
 </div>
+<script>
+  $(".quiz-delete-button").click(function (e) {
+    if(confirm("Are you sure you want to delete this quiz?")){
+       document.querySelector(".quiz-delete-link").click()
+    }
+  });
+</script>

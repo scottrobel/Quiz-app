@@ -3,7 +3,7 @@
 class QuizzesController < ApplicationController
   include QuizzesHelper
   before_action :authenticate_user!, except: [:index]
-  before_action :require_own_quiz_or_admin, only: %i[edit update]
+  before_action :require_own_quiz_or_admin, only: %i[edit update destroy]
   def new
     @quiz = Quiz.new
   end
@@ -79,6 +79,14 @@ class QuizzesController < ApplicationController
     
     respond_to do |format|
       format.js {}
+    end
+  end
+
+  def destroy
+    @quiz = Quiz.find_by(id: params[:id])
+    if @quiz.destroy
+      flash[:notice] = "'#{@quiz.title}' Deleted"
+      redirect_to users_quizzes_path
     end
   end
 

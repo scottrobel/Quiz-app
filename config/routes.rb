@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
   get '/users_quizzes', to: 'quizzes#users_quizzes'
-  resources :quizzes, only: %i[new create edit update show index]
+  resources :quizzes, only: %i[new create edit update show index destroy]
   resources :quizzes do
     resources :compass_photos, only: %i[new create destroy edit update]
     resources :responses, only: %i[new index]

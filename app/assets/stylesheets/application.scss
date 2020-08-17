@@ -26,8 +26,9 @@
   top: 0;
   justify-content: center;
   z-index: 2;
+  cursor: pointer;
 }
-.topnav > a{
+.topnav > a, .topnav > div{
   flex-direction: row;
   text-align: center;
   font-family: 'Francois One', sans-serif;
@@ -42,7 +43,8 @@
   color: white;
 }
 .topnav > a:hover,
-a.active{
+a.active,
+.topnav > div:hover{
   background-color: white;
   color: $primary-color;
 }

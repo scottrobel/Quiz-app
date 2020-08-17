@@ -410,3 +410,15 @@ div.check_boxes{
   text-align: center;
   margin: 200pt 0 0 0;
 }
+.pointer-toggle-button{
+  background-color: #30BCED;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 5px 10px #888888;
+}
+.compass-notice{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

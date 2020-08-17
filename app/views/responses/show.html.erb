@@ -1,7 +1,9 @@
 <div class="top-message"><%= link_to "<< Other Responses", quiz_responses_path(@response.quiz.id) if current_user.admin_user? %></div>
 <h1 class="top-message">Quiz: <%= @response.quiz.title %></h1>
 <div class="top-message">User: <%= link_to "#{@user.email}", user_path(@user.id)%></div> 
-<div class="compass-notice">Click compass to hide/show pointer</div>
+<div class="compass-notice">
+  <div class="pointer-toggle-button">Click to hide/show pointer on compass</div>
+</div>
 <div class="compass-container">
   <div class="compass-label"><%= @response.quiz.left_label %></div>
     <div>
@@ -25,7 +27,7 @@
   }
 </style>
 <script>
-  $(".compass").click(function (e) {
+  $(".pointer-toggle-button").click(function (e) {
     $(".compass-pointer").toggle();
   });
 </script>

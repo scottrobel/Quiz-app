@@ -3,8 +3,8 @@
 module QuizzesHelper
   private
 
-  def require_own_quiz
-    unless current_user.quizzes.find_by(id: params[:id])
+  def require_own_quiz_or_admin
+    unless current_user.quizzes.find_by(id: params[:quiz_id]) || current_user.admin_user?
       flash[:alert] = 'That Quiz is not Yours'
       redirect_to root_path
     end

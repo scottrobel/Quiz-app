@@ -3,7 +3,7 @@
 class QuizzesController < ApplicationController
   include QuizzesHelper
   before_action :authenticate_user!, except: [:index]
-  before_action :require_own_quiz, only: %i[edit update]
+  before_action :require_own_quiz_or_admin, only: %i[edit update]
   def new
     @quiz = Quiz.new
   end
@@ -13,7 +13,11 @@ class QuizzesController < ApplicationController
   end
 
   def users_quizzes
-    @quizzes = current_user.quizzes
+    if current_user.admin_user?
+      @quizzes = Quiz.all
+    else
+      @quizzes = current_user.quizzes
+    end
   end
 
   def index

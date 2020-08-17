@@ -2,6 +2,7 @@ class CompassPhotosController < ApplicationController
   include CompassPhotosHelper
   before_action :require_quiz, only: [:new, :create, :destroy, :edit, :update]
   before_action :attach_compass, only: [:create, :update]
+  before_action :require_own_quiz_or_admin, only: [:new, :create, :destroy, :edit, :update]
   def new ; end
 
   def create

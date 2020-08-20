@@ -4,7 +4,7 @@
 <div class="compass-notice">
   <div class="pointer-toggle-button">Click to hide/show pointer on compass</div>
 </div>
-<%= render 'responses/compass_result' %>
+<%= render 'responses/compass_result', quiz: @response.quiz %>
 <style>
   .compass-pointer{
     top: <%= @chart_position['Y'] %>%;

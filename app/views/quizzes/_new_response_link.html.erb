@@ -1,0 +1,6 @@
+<%= link_to new_quiz_response_path(quiz.id), class: "quiz-preview" do %>
+  <div class="quiz-preview-title"><%= quiz.title %></div>
+  <%= render 'quizzes/compass_preview', quiz: quiz %>
+  <div class="quiz-preview-data">
+  </div>
+<% end %>

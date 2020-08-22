@@ -1,7 +1,7 @@
 <div class="compass-container">
-  <div class="compass-label compass-side-label"><%= quiz.left_label %></div>
+  <div class="compass-label compass-side-label compass-preview-label"><%= quiz.left_label %></div>
     <div>
-      <div class="compass-label"><%= quiz.top_label %></div>
+      <div class="compass-label compass-preview-label"><%= quiz.top_label %></div>
       <div class="compass">
         <% if quiz.compass.attached? %>
           <%= image_tag(url_for(quiz.compass), class: 'small-compass') %>
@@ -9,7 +9,7 @@
           <%= image_tag("/compass.png", class: 'small-compass') %>
         <% end %>
       </div>
-      <div class="compass-label"><%= quiz.bottom_label %></div>
+      <div class="compass-label compass-preview-label"><%= quiz.bottom_label %></div>
     </div>
-  <div class="compass-label compass-side-label"><%= quiz.right_label %></div>
+  <div class="compass-label compass-side-label compass-preview-label"><%= quiz.right_label %></div>
 </div>

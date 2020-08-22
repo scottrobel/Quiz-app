@@ -369,6 +369,8 @@ div.check_boxes{
 }
 .compass{
   position: relative;
+  width: $compass-size;
+  height: $compass-size;
 }
 .big-compass{
   width: $compass-size;

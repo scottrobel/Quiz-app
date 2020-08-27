@@ -9,5 +9,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :rememberable, :validatable
+
+  #== Instance Methods
+  def user_name
+    email = self.email
+    email.match(/(.+)@.+/)[1]
+  end
 end
  

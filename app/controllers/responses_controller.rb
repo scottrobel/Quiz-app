@@ -35,6 +35,13 @@ class ResponsesController < ApplicationController
     @quiz = Quiz.find_by(id: params[:quiz_id])
   end
 
+  def take_random_quiz
+    quiz_ids = Quiz.all.pluck(:id)
+    quiz_count = quiz_ids.length
+    random_quiz_index = rand(0..quiz_count-1)
+    redirect_to new_quiz_response_path(quiz_ids[random_quiz_index])
+  end
+
   private
 
   def response_params

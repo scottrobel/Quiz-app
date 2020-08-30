@@ -1,2 +1,10 @@
-<div class="home-page-logo">Compass Hub</div>
-<%= render 'quizzes/quiz_list' %>
+<div class="home-page-logo">Featured Quizzes</div>
+<% if @quizzes.any? %>
+  <div class="quiz-list-container">
+    <% @quizzes.each do |quiz| %>
+        <%= render 'quizzes/new_response_link', quiz: quiz %>
+    <% end %>
+  </div>
+<% else %>
+  <div class="top-message">There are no more quizzes available!</div>
+<% end %>

@@ -43,6 +43,10 @@ class Quiz < ApplicationRecord
     end
   end
 
+  def featured?
+    !self.feature.nil?
+  end
+
   private
 
   def axis_min_max(axis, min_or_max)

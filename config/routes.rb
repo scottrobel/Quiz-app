@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :quizzes do
     resources :compass_photos, only: %i[new create destroy edit update]
     resources :responses, only: %i[new index]
+    resources :features, only: [:create, :destroy]
   end
   resources :responses, only: %i[create show]
   devise_for :users

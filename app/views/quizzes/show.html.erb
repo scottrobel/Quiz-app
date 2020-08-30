@@ -6,6 +6,13 @@
   <%= navbar_link 'Change Compass Photo', edit_quiz_compass_photo_path(@quiz) %>
   <div class="quiz-delete-button">Delete Quiz</div>
   <%= link_to 'Hidden Button', quiz_path(@quiz.id), method: :delete, class: "hidden quiz-delete-link" %>
+  <% if current_user.admin_user? %>
+    <% if @quiz.featured? %>
+    <%= navbar_link 'Unfeature Quiz', quiz_feature_path(@quiz.id, @quiz.feature.id), method: :delete, class: "quiz-delete-button" %>
+    <% else %>
+    <%= navbar_link 'Feature Quiz', quiz_features_path(@quiz.id), method: :post, class: "quiz-delete-button" %>
+    <% end %>
+  <% end %>
 </div>
 <script>
   $(".quiz-delete-button").click(function (e) {

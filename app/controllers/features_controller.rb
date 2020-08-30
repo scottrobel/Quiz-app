@@ -2,7 +2,7 @@ class FeaturesController < ApplicationController
   include FeaturesHelper
   before_action :require_admin, only: [:create, :destroy]
   def create
-    quiz = Quiz.find_by(params[:quiz_id])
+    quiz = Quiz.find_by(id: params[:quiz_id])
     feature = quiz.build_feature
     if feature.save
       flash[:notice] = "Quiz Featured"

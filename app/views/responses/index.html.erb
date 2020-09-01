@@ -1,4 +1,4 @@
 <h3 class="top-message"> <%= @quiz.title %> Responses </h3>
-<% @quiz.responses.each do |response| %>
-  <div class="top-message"><%= link_to "#{response.user.email}", response_path(response.id)%></div>
+<% @quiz.responses.includes(:user).each do |response| %>
+  <div class="top-message"><%= link_to "#{response.user.user_name}", response_path(response.id)%></div>
 <% end %>

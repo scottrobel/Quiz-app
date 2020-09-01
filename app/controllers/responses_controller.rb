@@ -4,8 +4,8 @@ class ResponsesController < ApplicationController
   include QuizzesHelper
   include ResponsesHelper
   before_action :require_quiz_exists, only: %i[new create]
-  before_action :authenticate_user!
   before_action :require_answers_ids_belong_to_quiz, only: %i[create]
+  before_action :require_admin_own_quiz_or_own_response, only: %i[show]
   def new
     quiz = Quiz.find_by(id: params[:quiz_id])
     @response = Response.new
@@ -34,6 +34,15 @@ class ResponsesController < ApplicationController
   def index
     @quiz = Quiz.find_by(id: params[:quiz_id])
   end
+
+  def take_random_quiz
+    quiz_ids = Quiz.all.pluck(:id)
+    quiz_count = quiz_ids.length
+    random_quiz_index = rand(0..quiz_count-1)
+    redirect_to new_quiz_response_path(quiz_ids[random_quiz_index])
+  end
+
+  private
 
   def response_params
     params.require(:response).permit(:quiz_id, answer_ids: [], answers_attributes: %i[question_id contents])

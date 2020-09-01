@@ -1,46 +1,60 @@
 # frozen_string_literal: true
 
 class Quiz < ApplicationRecord
+  #== File Attachments
+  has_one_attached :compass
+  
   #== Associations
   belongs_to :creator, class_name: 'User'
   has_many :questions, dependent: :destroy
   has_many :answers, through: :questions
   has_many :responses, dependent: :destroy
+  has_one :feature, dependent: :destroy
   accepts_nested_attributes_for :questions, allow_destroy: true
   #== Instance Methods
-
-  def axis_question_hash
-    self.questions.includes(:answers).group_by(&:axis)
-  end
-
+  
   def xy_max
-    axis_max_values = axis_question_hash.map do |axis, questions|
-      max_value = questions.map do |question|
-        question.answers.map(&:value).max
-      end.compact.sum
-      [axis, max_value]
-    end.to_h
-    {'X' => axis_max_values['X'], 'Y' => axis_max_values['Y']}
+    {'X' => axis_min_max("X", "max"), 'Y' => axis_min_max("Y", "max")}
   end
 
   def xy_min
-    axis_max_values = axis_question_hash.map do |axis, questions|
-      max_value = questions.map do |question|
-        question.answers.map(&:value).min
-      end.compact.sum
-      [axis, max_value]
-    end.to_h
-    {'X' => axis_max_values['X'], 'Y' => axis_max_values['Y']}
+    {'X' => axis_min_max("X", "min"), 'Y' => axis_min_max("Y", "min")}
   end
 
-  def index_questions_and_answers
-    self.questions.includes(:answers).to_a.each_with_index do |question, question_index|
-      question.index = question_index
-      question.save
-      question.answers.each_with_index do |answer, answer_index|
-        answer.index = answer_index
-        answer.save
+  def update_indexes
+    Task.transaction do
+      self.questions.to_a.sort_by(&:index).each_with_index do |question, question_index|
+        question.index = question_index
+        question.save
+        question.answers.order(:index).each_with_index do |answer, answer_index|
+          answer.index = answer_index
+          answer.save
+        end
       end
     end
+  end
+
+  def create_indexes
+    self.questions.to_a.sort_by(&:index).each_with_index do |question, question_index|
+      question.index = question_index
+      question.answers.to_a.sort_by(&:index).each_with_index do |answer, answer_index|
+        answer.index = answer_index
+      end
+    end
+  end
+
+  def featured?
+    !self.feature.nil?
+  end
+
+  private
+
+  def axis_min_max(axis, min_or_max)
+    min_or_max = min_or_max == "min" ? "min" : "max"
+    self.questions
+      .joins("INNER JOIN answers ON answers.question_id = questions.id")
+      .having("questions.axis = ?", axis)
+      .group('questions.id')
+      .pluck("#{min_or_max}(answers.value)").sum
   end
 end

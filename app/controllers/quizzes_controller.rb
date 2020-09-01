@@ -2,8 +2,8 @@
 
 class QuizzesController < ApplicationController
   include QuizzesHelper
-  before_action :authenticate_user!
-  before_action :require_own_quiz, only: %i[edit update]
+  before_action :authenticate_user!, except: [:index]
+  before_action :require_own_quiz_or_admin, only: %i[edit update destroy]
   def new
     @quiz = Quiz.new
   end
@@ -13,7 +13,11 @@ class QuizzesController < ApplicationController
   end
 
   def users_quizzes
-    @quizzes = current_user.quizzes
+    if current_user.admin_user?
+      @quizzes = Quiz.all
+    else
+      @quizzes = current_user.quizzes
+    end
   end
 
   def index
@@ -41,15 +45,11 @@ class QuizzesController < ApplicationController
     elsif params[:commit] == 'Create Quiz'
       if @quiz.save
         flash[:notice] = 'Quiz Created'
-        redirect_to quizzes_path
+        redirect_to new_quiz_compass_photo_path(@quiz)
       end
     end
-    @quiz.questions.to_a.sort_by(&:index).each_with_index do |question, question_index|
-      question.index = question_index
-      question.answers.to_a.sort_by(&:index).each_with_index do |answer, answer_index|
-        answer.index = answer_index
-      end
-    end
+    @quiz.questions.to_a.each(&:create_default_answers)
+    @quiz.create_indexes
     respond_to do |format|
       format.js {}
     end
@@ -57,6 +57,7 @@ class QuizzesController < ApplicationController
 
   def edit
     @quiz = Quiz.find_by(id: params[:id])
+    @quiz.create_indexes
   end
 
   def update
@@ -70,26 +71,29 @@ class QuizzesController < ApplicationController
         question = question.answers.build(index: question.answers.to_a.count)
       elsif params[:commit] == 'Update Quiz'
         flash[:notice] = 'Quiz Updated'
-        redirect_to root_path
+        redirect_to quiz_path(@quiz)
       end
     end
-    @quiz.questions.order(:index).each_with_index do |question, question_index|
-      question.index = question_index
-      question.save
-      question.answers.order(:index).each_with_index do |answer, answer_index|
-        answer.index = answer_index
-        answer.save
-      end
-    end
+    @quiz.questions.to_a.each(&:update_default_answers)
+    @quiz.create_indexes
+    
     respond_to do |format|
       format.js {}
+    end
+  end
+
+  def destroy
+    @quiz = Quiz.find_by(id: params[:id])
+    if @quiz.destroy
+      flash[:notice] = "'#{@quiz.title}' Deleted"
+      redirect_to users_quizzes_path
     end
   end
 
   private
 
   def quiz_params
-    params.require(:quiz).permit(:title, :top_label, :bottom_label, :right_label, :left_label, questions_attributes: [:index, :axis, :contents, :question_type, :_destroy, answers_attributes: %i[index value contents _destroy]])
+    params.require(:quiz).permit(:compass, :title, :top_label, :bottom_label, :right_label, :left_label, questions_attributes: [:index, :axis, :contents, :question_type, :_destroy, answers_attributes: %i[index value contents _destroy]])
   end
 
   def quiz_update_params

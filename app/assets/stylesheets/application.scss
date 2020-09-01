@@ -14,6 +14,7 @@
  *= require_self
  */
  $primary-color: #30BCED;
+ $compass-size: 600px;
  body{
   margin: 0;
   background-image: url("https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square.png");
@@ -24,8 +25,10 @@
   position: sticky;
   top: 0;
   justify-content: center;
+  z-index: 2;
+  cursor: pointer;
 }
-.topnav > a{
+.topnav > a, .topnav > div{
   flex-direction: row;
   text-align: center;
   font-family: 'Francois One', sans-serif;
@@ -40,7 +43,8 @@
   color: white;
 }
 .topnav > a:hover,
-a.active{
+a.active,
+.topnav > div:hover{
   background-color: white;
   color: $primary-color;
 }
@@ -95,9 +99,10 @@ form, .form-group{
   flex-direction: column;
   margin-bottom: 10%;
 }
-label{
+label, .question-text{
   margin-top: 5px;
   color:white;
+  font-size: 15pt;
 }
 input[type=text],
 input[type=email],
@@ -330,6 +335,7 @@ textarea{
   border-radius: 5px;
   margin-top: 10px;
   cursor: pointer;
+  text-decoration: none;
 }
 .add-option{
   display: inline-block;
@@ -363,8 +369,14 @@ div.check_boxes{
 }
 .compass{
   position: relative;
-  width: 300px;
-  height: 300px;
+}
+.big-compass{
+  width: $compass-size;
+  height: $compass-size;
+}
+.small-compass{
+  width: 200px;
+  height: 200px;
 }
 .compass-container{
   display: flex;
@@ -372,20 +384,137 @@ div.check_boxes{
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin: 200pt 0;
-}
-.compass-img{
-  width: 300px;
-  height: 300px;
+  margin: 20px 0;
 }
 .compass-pointer{
   position: absolute;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   text-align: center;
   font-size: 18px;
   transform: translate(-50%, -50%);
   background-color: red;
   border-radius: 50%;
   border: 2px solid black;
+}
+.full-size{
+  width: 100%;
+}
+.compass-label{
+  font-size: 20pt;
+  text-decoration: none;
+}
+.compass-form-icon{
+  width: 300px;
+  height: 300px;
+}
+.hidden{
+  display: none;
+}
+.compass-notice{
+  font-size: 20pt;
+  text-align: center;
+  margin: 200pt 0 0 0;
+}
+.pointer-toggle-button{
+  background-color: #30BCED;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 5px 10px #888888;
+  cursor: pointer;
+}
+.compass-notice{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+// dropdown 
+/*the container must be positioned relative:*/
+.custom-select {
+  position: relative;
+  font-family: Arial;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element:*/
+}
+
+.select-selected {
+  background-color: white;
+  box-shadow: 3px 3px #888888;
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent $primary-color transparent;
+  top: 7px;
+}
+
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected {
+  color: $primary-color;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+/*style items (options):*/
+.select-items {
+  position: absolute;
+  background-color: white;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  box-shadow: 3px 3px #888888;
+}
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.quiz-list-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.quiz-preview{
+  background-color: #30BCED;
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+  margin: 30px;
+  width: 500px;
+  box-shadow: slategray 10px 10px;
+}
+.quiz-preview-title{
+  font-size: 30pt;
+  text-align: center;
+  font-weight: bold;
+}
+.compass-side-label{
+  width: 150px;
+}
+.compass-preview-label{
+  color: white;
 }

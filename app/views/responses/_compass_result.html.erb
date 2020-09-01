@@ -1,0 +1,16 @@
+<div class="compass-container center mt-3">
+  <div class="compass-label"><%= quiz.left_label %></div>
+    <div>
+      <div class="compass-label"><%= quiz.top_label %></div>
+      <div class="compass big-compass">
+        <div class="compass-pointer"></div>
+        <% if quiz.compass.attached? %>
+          <%= image_tag(url_for(quiz.compass), class: 'big-compass compass-img') %>
+        <% else %> 
+          <%= image_tag("/compass.png", class: 'big-compass compass-img') %>
+        <% end %>
+      </div>
+      <div class="compass-label"><%= quiz.bottom_label %></div>
+    </div>
+  <div class="compass-label"><%= quiz.right_label %></div>
+</div>

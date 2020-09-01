@@ -1,0 +1,11 @@
+<div class="form-container">
+  <%= form_for @quiz, url: quiz_compass_photos_path(@quiz), method: "post" do |f| %>
+  <div class="top-message"><%= @quiz.title %></div>
+    <%= f.label "Compass Photo (optional)" %>
+    <%= f.file_field :compass%>
+    <%= f.submit "Continue" %>
+    <% if @quiz.compass.attached?%>
+      <%= link_to "Use default Compass photo", quiz_compass_photo_path(@quiz, @quiz.compass.id), method: :delete, class: "form-submit-button"%>
+    <% end %>
+  <% end %>
+</div>

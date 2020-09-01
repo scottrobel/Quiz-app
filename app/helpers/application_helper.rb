@@ -15,4 +15,12 @@ module ApplicationHelper
     html_params[:class] = navbar_link_class(link)
     link_to text, link, html_params
   end
+
+  def current_user
+    super || guest_user
+  end
+
+  def guest_user
+    @guest_user ||= User.find_by(user_type: "guest_user")
+  end
 end

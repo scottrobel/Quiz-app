@@ -1,21 +1,18 @@
 <div class="top-message"><%= link_to "<< Other Responses", quiz_responses_path(@response.quiz.id) if current_user.admin_user? %></div>
 <h1 class="top-message">Quiz: <%= @response.quiz.title %></h1>
-<div class="top-message">User: <%= link_to "#{@user.email}", user_path(@user.id)%></div> 
-<div class="compass-container">
-  <div><%= @response.quiz.left_label %></div>
-    <div>
-      <div><%= @response.quiz.top_label %></div>
-      <div class="compass">
-        <div class="compass-pointer"></div>
-        <%= image_tag("/compass.png", class: 'compass-img') %>
-      </div>
-      <div><%= @response.quiz.bottom_label %></div>
-    </div>
-  <div><%= @response.quiz.right_label %></div>
+<div class="top-message">User: <%= link_to "#{@user.user_name}", user_path(@user.id)%></div> 
+<div class="compass-notice">
+  <div class="pointer-toggle-button">Click to hide/show pointer on compass</div>
 </div>
+<%= render 'responses/compass_result', quiz: @response.quiz %>
 <style>
   .compass-pointer{
     top: <%= @chart_position['Y'] %>%;
     left:<%= @chart_position['X'] %>%;
   }
 </style>
+<script>
+  $(".pointer-toggle-button").click(function (e) {
+    $(".compass-pointer").toggle();
+  });
+</script>

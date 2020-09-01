@@ -1,4 +1,4 @@
-<div class="top-message">Email: <%= @user.email %></div>
+<div class="top-message"><%= @user.user_name %></div>
 <h3 class="top-message">Quiz Responses:</h3>
 <% @user.responses.each do |response| %>
   <div class="top-message"><%= link_to "#{response.quiz.title}", response_path(response.id)%></div>

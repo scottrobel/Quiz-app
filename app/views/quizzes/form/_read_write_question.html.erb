@@ -1,0 +1,12 @@
+<div id="choice-container-<%= question_helper.object.index %>">
+  <%= question_helper.fields_for :answers do |choice_helper|%>
+    <%= choice_helper.label "Option #{choice_helper.object.index+1}" %>
+    <%= choice_helper.select :value,[["#{question_helper.object.axis_positive_end} +2", 2], ["#{question_helper.object.axis_positive_end} +1", 1], ["No Movement-+0", 0],["#{question_helper.object.axis_negitive_end} +1", -1], ["#{question_helper.object.axis_negitive_end} +2", -2]], {}, class: "auto-update" %>
+    <%= choice_helper.hidden_field :index %>
+    <div class="text-box-container">
+      <%= choice_helper.text_field :contents %>
+      <%= render 'quizzes/delete_button', delete_button_params('choice', question_helper.object.index, choice_helper.index) %>
+    </div>
+  <% end %>
+  <div class="form-submit-button add-option" data-action="add-option" data-question-index="<%= question_helper.object.index %>">Add Option</div>
+</div>

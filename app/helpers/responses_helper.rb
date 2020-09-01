@@ -21,4 +21,12 @@ module ResponsesHelper
       quiz_answers_ids.include?(submitted_id)
     end
   end
+
+  def require_admin_own_quiz_or_own_response
+    response = Response.find(params[:id].to_i)
+    if !(current_user.admin_user? || response.quiz.creator_id == current_user.id || response.user_id == current_user.id || reponse.user.guest_user?)
+      flash[:alert] = "You don't have access to that response"
+      redirect_to root_path
+    end
+  end
 end

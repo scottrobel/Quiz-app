@@ -1,0 +1,11 @@
+# Add configuration values here, as shown below.
+#
+# pusher_app_id: "2954"
+# pusher_key: 7381a978f7dd7f9a1117
+# pusher_secret: abdc3b896a0ffb85d373
+stripe_api_key: sk_test_51HQlBFCcZRSqduBlQuAJXgzWQwDf3NaXVxQVKMp7M6muFm93u4KsVr5UrdcCpAP24dFwhETL9AJ5gGpFWyhJdZ8N00QBbvlaj0
+stripe_publishable_key:  pk_test_51HQlBFCcZRSqduBlJ0F7Ess3gQiOJBgCDnocYiHR3vkLFOZCDeyvlurmTSk24OTaxakMK19PQC732PLddR4oFIWp00y1la75O1
+marketplace_fee_ratio: 0.15
+# production:
+#   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
+#   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
